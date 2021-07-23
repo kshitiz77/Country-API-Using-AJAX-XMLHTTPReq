@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India</title>
+    <style>
+        body{
+            background: black;
+        }
+        #container{
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            width: 550px;
+            text-align: center;
+            height: 600px;
+            border: 2px solid red;
+            border-radius: 8px;
+            background-color: #7e221b;
+        }
+
+        .card-body,img{
+            height: 220px;
+            width: 300px;
+        }
+        .card-body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            flex-direction: column;
+            width: 350px;
+            height: 400px;
+            border: 2px solid black;
+        }
+        .card-footer{
+            display: flex;
+            flex-direction: row;
+        }
+        .card-footer-social{
+            margin: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+    </div>
+    <script>
+        const container = document.querySelector('#container');
+        const request = new XMLHttpRequest();
+        request.open('GET', "https://restcountries.eu/rest/v2/alpha/IND");
+        request.send();
+
+        // To get the responsed ==>
+
+        request.addEventListener('load', function() {
+            const data = JSON.parse(this.responseText);
+            // console.log(data.capital);
+         
+            const htmlData = `
+           
+        <div id="card">
+            <article class="card">
+                <div class="card-body">
+                    <img src="${data.flag}" alt="image" class="card-body-img">
+                    <h1 class="card-body-title">
+                        ${data.name}
+                    </h1>
+                    <p class="card-body-text">Capital : ${data.capital} </p>
+                </div>
+                <div class="card-footer">
+                    <div class="card-footer-social">
+                        <h3> ${data.nativeName} </h3>
+                        <p>Native Language</p>
+                    </div>
+                    <div class="card-footer-social">
+                        <h3> ${data.population} </h3>
+                        <p> Population </p>
+                    </div>
+                    <div class="card-footer-social">
+                        <h3> ${data.demonym} </h3>
+                        <p> Demonym </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    `;
+        container.insertAdjacentHTML('afterbegin',htmlData);
+        });
+        
+        
+    </script>
+</body>
+</html>
